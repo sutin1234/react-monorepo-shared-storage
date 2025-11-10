@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFrame Storage</title>
+    <script>
+        window.addEventListener("message", function (e) {
+            if (e.data && e.data.type === "setItem") {
+                localStorage.setItem(e.data.key, e.data.value);
+                // console.log(`Set item in localStorage: ${e.data.key} = ${e.data.value}`);
+            } else if (e.data && e.data.type === "getItem") {
+                const value = localStorage.getItem(e.data.key);
+                e.source.postMessage({ type: "getItemResponse", key: e.data.key, value: value }, e.origin);
+                // console.log(`Get item from localStorage: ${e.data.key} = ${value}`);
+            }
+        })
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
